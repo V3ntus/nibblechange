@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nibblechange/constants.dart';
+import 'package:nibblechange/global_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Login extends StatefulWidget {
@@ -11,7 +13,19 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final tokenController = TextEditingController();
+
+  void tryLogin(String accessToken) async {
+    final result = await Provider.of<GlobalHandler>(context, listen: false).login(accessToken);
+    if (result["did_error"] && context.mounted && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result["message"])));
+    }
+  }
+
+  /// True if the tokenController value is not empty
   bool isTokenFilled = false;
+
+  /// True if attempting to log in
+  bool isLoggingIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +81,12 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   IconButton.outlined(
-                    onPressed: isTokenFilled ? () {} : null,
+                    onPressed: isTokenFilled
+                        ? () async {
+                            tryLogin(tokenController.text);
+                            // await secureStorage.write(key: "${StorageKeys.accessToken}", value: tokenController.text);
+                          }
+                        : null,
                     icon: const Icon(
                       Icons.login_rounded,
                       size: 32,

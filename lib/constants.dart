@@ -1,7 +1,7 @@
 const APP_NAME = "nibblechange";
 
 enum StorageKeys {
-  apiKey("APIKEY");
+  accessToken("ACCESSTOKEN");
 
   final String value;
 

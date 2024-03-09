@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -21,9 +22,21 @@ ColorScheme defaultScheme({bool isDark = false}) {
   );
 }
 
+final globalHandler = GlobalHandler();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final accessToken = await secureStorage.read(key: "$StorageKeys.accessToken");
+  String? accessToken = await secureStorage.read(key: "${StorageKeys.accessToken}");
+
+  // Try to log in with the access token
+  if (accessToken != null) {
+    try {
+      await globalHandler.login(accessToken);
+    } on DioException {
+      // Token is probably invalid
+      accessToken = null;
+    }
+  }
 
   final router = GoRouter(
     routes: [
@@ -56,7 +69,7 @@ class NibbleChangeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GlobalHandler()),
+        ChangeNotifierProvider(create: (_) => globalHandler),
       ],
       child: DynamicColorBuilder(
         builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
@@ -84,6 +97,7 @@ class NibbleChangeApp extends StatelessWidget {
             title: APP_NAME,
             themeMode: ThemeMode.system,
             routerConfig: router,
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               colorScheme: lightColorScheme,
               useMaterial3: true,

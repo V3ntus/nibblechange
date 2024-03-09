@@ -3,6 +3,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nibblechange/constants.dart';
 import 'package:nibblechange/global_handler.dart';
 import 'package:nibblechange/routes/Home.dart';
@@ -101,10 +102,12 @@ class NibbleChangeApp extends StatelessWidget {
             theme: ThemeData(
               colorScheme: lightColorScheme,
               useMaterial3: true,
+              textTheme: GoogleFonts.poppinsTextTheme(),
             ),
             darkTheme: ThemeData(
               colorScheme: darkColorScheme,
               useMaterial3: true,
+              textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
             ),
           );
         },

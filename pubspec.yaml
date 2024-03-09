@@ -39,9 +39,15 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   dynamic_color: ^1.7.0
   url_launcher: ^6.2.5
-  lunchmoney: ^1.0.0-alpha1
+  lunchmoney:
+    git:
+      url: https://github.com/V3ntus/lunchmoney_dart
+      ref: main
   provider: ^6.1.2
   dio: ^5.4.1
+  google_fonts: ^6.2.1
+  intl: ^0.19.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:

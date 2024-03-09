@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nibblechange/constants.dart';
 import 'package:nibblechange/global_handler.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ class _LoginState extends State<Login> {
     final result = await Provider.of<GlobalHandler>(context, listen: false).login(accessToken);
     if (result["did_error"] && context.mounted && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result["message"])));
+    } else if (!result["did_error"] && context.mounted && mounted) {
+      context.go("/");
     }
   }
 

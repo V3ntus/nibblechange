@@ -269,7 +269,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "6cc37c320896f7b4f9aab1824558ae3c9a39f2b6"
+      resolved-ref: eb47c7b30d327c75f1b64ada680bfb1b911d3de6
       url: "https://github.com/V3ntus/lunchmoney_dart"
     source: git
     version: "1.0.0-alpha1"

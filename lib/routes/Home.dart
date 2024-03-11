@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nibblechange/routes/pages/FinancesPage.dart';
 import 'package:nibblechange/routes/pages/HomePage.dart';
 
 class Home extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
           });
         },
         children: [
-          Container(color: Colors.amber),
+          const FinancesPage(),
           const HomePage(),
           Container(color: Colors.blue),
         ],
